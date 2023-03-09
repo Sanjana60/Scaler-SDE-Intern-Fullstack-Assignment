@@ -1,0 +1,29 @@
+.row{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    
+}
+
+
+.row_left{
+    display: flex;
+    padding-top: 20px;
+}
+.row_left p{
+    padding-left: 30px;
+}
+.row_left h4{
+    padding-left: 30px;
+}
+
+.row_right{
+    padding-top: 16px;
+    padding-right: 30px;
+}
+.row_right img{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    
+}
