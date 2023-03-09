@@ -6,13 +6,67 @@
 }
 .searchbar input{
     font-size: 20px;
+    font-weight:thin;
     border: none;
     width:70%;
     background-color: transparent;
     resize: none;
     outline: none;
 
-
-
 }
+
+.searchbar_sort{
+    display: flex;
+    font-size:12px;
+    align-items: center;
+    justify-content:end;
+    padding-right: 30px;
+}
+
+.searchbar_sort p{
+    color: #999999;
+}
+
+
+
+
+.Dropdown-control {
+    position: relative;
+    width:20px;
+    overflow: hidden;
+    font-weight: bold;
+    background-color: white;
+    color: #474747;
+    cursor: default;
+    outline: none;
+    padding: 8px 52px 8px 10px;
+    transition: all 200ms ease;
+  }
+  
+  .Dropdown-menu {
+    background-color: white;
+    margin-top: -1px;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .Dropdown-root {
+    position: relative;
+  }
+  .Dropdown-option {
+    box-sizing: border-box;
+    color: #999999;
+    cursor: pointer;
+    display: block;
+    padding: 8px 10px;
+  }
+  
+  
+
+
 

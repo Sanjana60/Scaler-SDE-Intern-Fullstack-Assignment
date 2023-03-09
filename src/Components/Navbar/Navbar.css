@@ -7,14 +7,18 @@
 
 
 .row_left{
+    
     display: flex;
     padding-top: 20px;
+
 }
 .row_left p{
     padding-left: 30px;
+    color: #999999;
 }
 .row_left h4{
     padding-left: 30px;
+    color:#474747;
 }
 
 .row_right{
