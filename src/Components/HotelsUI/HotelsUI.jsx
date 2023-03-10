@@ -112,14 +112,15 @@ function BookingHotel(props){
       }
 
     return (
-        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"220px":"140px"}} onClick={typeClick}>
+        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
                 <div className="hotelbookingcard_right">
                     <h4>{props.type.name}</h4>
                     <Rating rate={4}/>
                     <p>{props.state}</p>
-                    <h4 id='bookingprice'>&#8377; 5000</h4>
+                    <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {props.type.left}</p>
+                    <h4 id='bookingprice'>&#8377; {props.type.price}/hr</h4>
                     <div className="hotelbookingcard_icons">
                         <div className="hotelcard_icons_row">
                             <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
