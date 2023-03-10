@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState={
-    whichTypeClicked:"TypeA",
+    whichTypeClicked:"None",
 };
 
 export const typeClickedSlice = createSlice({

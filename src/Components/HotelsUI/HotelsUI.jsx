@@ -84,15 +84,22 @@ function BookingHotel(props){
 
 
     const typeClick=()=>{
-        dispatch(typeClicked(props.selected));
+        if(whichTypeClicked===props.selected){
+            dispatch(typeClicked("None"));
+
+        }
+        else{
+            dispatch(typeClicked(props.selected));
+        }
+        
       }
 
     return (
-        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"500px":"200px"}} onClick={typeClick}>
+        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"500px":"210px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
                 <div className="hotelbookingcard_right">
-                    <h4>{name}</h4>
+                    <h4>{props.selected}</h4>
                     <Rating rate={4}/>
                     <p>Nitikan Umbu</p>
                     <h4 id='bookingprice'>&#8377; 5000</h4>
