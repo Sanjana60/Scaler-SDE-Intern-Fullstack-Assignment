@@ -45,6 +45,7 @@
   
   .Dropdown-menu {
     background-color: white;
+    border-radius: 8px;
     margin-top: -1px;
     max-height: 200px;
     overflow-y: auto;
