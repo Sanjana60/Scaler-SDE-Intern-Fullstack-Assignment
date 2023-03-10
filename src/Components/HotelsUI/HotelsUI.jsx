@@ -57,7 +57,7 @@ function HotelsUI() {
                     <IoIosArrowBack/>
                     <p>Back to Home Screen</p>
                 </div>
-                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} selected={"None"} type={type}/>)}</div>
+                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} selected={type.name} type={type}/>)}</div>
             </div>
         }
     </>
@@ -100,7 +100,6 @@ function HotelCard({handleClick,hotel}){
 
 function BookingHotel(props){
 
-    const [value, setValue] = useState('10:00');
 
 
     const whichTypeClicked=useSelector((state)=>state.whichTypeClicked.whichTypeClicked);
@@ -117,7 +116,7 @@ function BookingHotel(props){
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
                 <div className="hotelbookingcard_right">
-                    <h4>{props.selected}</h4>
+                    <h4>{props.type.name}</h4>
                     <Rating rate={4}/>
                     <p>Nitikan Umbu</p>
                     <h4 id='bookingprice'>&#8377; 5000</h4>
