@@ -8,7 +8,7 @@ function Navbar() {
         <div className="row">
             <div className="row_left">
                 <h3>Hotel</h3>
-                <p>Rent</p>
+                <p>Booked</p>
                 <p>Buy</p>
             </div>
             <div className="row_right">

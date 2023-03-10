@@ -10,10 +10,9 @@ import { collection, onSnapshot, query, updateDoc ,doc} from 'firebase/firestore
 import {db} from "../../firebase"
 
 function HotelsUI() {
-    const names = ['Bruce', 'Clark', 'Diana','Bruce', 'Clark', 'Diana','Bruce', 'Clark', 'Diana']
 
     const [hotellist, sethotellist] = useState([])
-    const types = ['Type A', 'Type B', 'Type C']
+
     const [showHotelBooking, setshowHotelBooking] = useState(false);
     const [hotelselected, sethotelselected] = useState(-1);
 
@@ -23,7 +22,6 @@ function HotelsUI() {
         const unsubscribe=onSnapshot(q,(querySnapshot)=>{
             let hotellist=[];
             querySnapshot.forEach((doc)=>{
-                // console.log("doc");
                 hotellist.push({...doc.data(),id:doc.id})
             });
 
@@ -71,11 +69,11 @@ function HotelsUI() {
 function HotelCard({handleClick,hotel}){
     return (
         <div className="hotelcard" onClick={handleClick}>
-            <img  src={hotel.img} alt="hii" />
+            <img  src={hotel.img} style={{filter: (hotel.totalavailable===0)?"grayscale(100%)":"grayscale(0%)"}} alt="hii" />
             <h4>{hotel.name}</h4>
             <p>{hotel.state}</p>
             <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {hotel.totalavailable}</p>
-            <h4 id='price'>&#8377; 5000</h4>
+            <h4 id='price' style={{filter: (hotel.totalavailable===0)?"grayscale(100%)":"grayscale(0%)"}} >&#8377; 5000</h4>
             <div className="hotelcard_icons">
                 <div className="hotelcard_icons_row">
                     <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
@@ -101,6 +99,12 @@ function HotelCard({handleClick,hotel}){
 
 function BookingHotel(props){
 
+    const [name, setname] = useState("");
+    const [room, setroom] = useState(-1);
+    const [starttime, setstarttime] = useState("");
+    const [endtime, setendtime] = useState("");
+    const [fillformerror, setfillformerror] = useState(false);
+
 
 
     const whichTypeClicked=useSelector((state)=>state.whichTypeClicked.whichTypeClicked);
@@ -115,23 +119,54 @@ function BookingHotel(props){
 
       const booknow= async ()=>{
 
-        let type_copy = props.hotelData.type.map((element,i) => {
-            if (i === props.index) {
-              element.left = element.left-1;
-            } 
-          return element;
-          });
+        console.log(room)
+        if(name!="" && room !="" && starttime!="" &&endtime!=""){
+            setfillformerror(false);
+
+            let type_copy = props.hotelData.type.map((element,i) => {
+                if (i === props.index) {
+                  element.left = element.left-1;
+                } 
+              return element;
+              });
+    
+    
+    
+            await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
+    
+                totalavailable:props.hotelData.totalavailable-1,
+                type:type_copy,
+    
+            })
 
 
+        }
+        else{
+            setfillformerror(true);
+        }
 
-        await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
+        
 
-            totalavailable:props.hotelData.totalavailable-1,
-            type:type_copy,
+        
 
-        })
+        
       }
 
+      const handleChangeName = (event) => {
+        setname(event.target.value);
+      };
+
+      const handleChangeRoom = (event) => {
+        setroom(event.target.value);
+      };
+
+      const handleChangeStart = (event) => {
+        setstarttime((event.target.value));
+      };
+
+      const handleChangeEnd = (event) => {
+        setendtime((event.target.value));
+      };
 
     return (
         <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
@@ -168,17 +203,19 @@ function BookingHotel(props){
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                 <div>
                     <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
-                        <input type="text" placeholder='Email ID'></input>
-                        <input type="number" style={{marginLeft:"10px"}} placeholder='Room Number'></input>
+                        <input type="text" onChange={handleChangeName} placeholder='Email ID' ></input>
+                        <input type="number" onChange={handleChangeRoom} style={{marginLeft:"10px"}} placeholder='Room Number'></input>
                     </div>
                     <div className="hotelbookingcard_input"> 
-                        <input type="text" placeholder='Start Time'></input>
-                        <input type="number" style={{marginLeft:"10px"}} placeholder='End Time'></input>
+                        <input type="time" onChange={handleChangeStart} placeholder='Start Time'></input>
+                        <input type="time" onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
                     </div>
                 </div>
 
                 <div className={props.type.left===0?"hotelbookingcard_input_black":"hotelbookingcard_input"}> 
+                    {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
                     <button onClick={(props.type.left===0)?()=>{}:booknow} >Book Now</button>
+                    
                  </div>
 
 
