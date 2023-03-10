@@ -57,7 +57,7 @@ function HotelsUI() {
                     <IoIosArrowBack/>
                     <p>Back to Home Screen</p>
                 </div>
-                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} selected={type.name} type={type}/>)}</div>
+                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} state={hotellist[hotelselected].state} selected={type.name} type={type}/>)}</div>
             </div>
         }
     </>
@@ -71,7 +71,7 @@ function HotelsUI() {
 function HotelCard({handleClick,hotel}){
     return (
         <div className="hotelcard" onClick={handleClick}>
-            <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
+            <img  src={hotel.img} alt="hii" />
             <h4>{hotel.name}</h4>
             <p>{hotel.state}</p>
             <h4 id='price'>&#8377; 5000</h4>
@@ -118,20 +118,20 @@ function BookingHotel(props){
                 <div className="hotelbookingcard_right">
                     <h4>{props.type.name}</h4>
                     <Rating rate={4}/>
-                    <p>Nitikan Umbu</p>
+                    <p>{props.state}</p>
                     <h4 id='bookingprice'>&#8377; 5000</h4>
                     <div className="hotelbookingcard_icons">
                         <div className="hotelcard_icons_row">
                             <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
-                            <p>2</p>
+                            <p>{props.type.bed}</p>
                         </div>
                         <div className="hotelbookingcard_icons_row">
                             <FaShower style={{paddingRight:"3px",color:"#474747"}}/>
-                            <p>2</p>
+                            <p>{props.type.shower}</p>
                         </div>
                         <div className="hotelbookingcard_icons_row">
                             <FaHome style={{paddingRight:"3px",color:"#474747"}}/>
-                            <p>200m<sup>2</sup></p>
+                            <p>{props.type.size}m<sup>2</sup></p>
                         </div>
                     </div>
 
