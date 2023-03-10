@@ -68,13 +68,16 @@
 
 .hotelbookingcard{
     border: solid red 1px;
-    display:flex;
+    /* display:flex; */
     /* justify-content: center; */
     margin:7.5px 15px;
     width: 100%;
     padding: 10px;
     border-radius: 10px;
     transition: 200ms;
+}
+.hotelbookingcard_column1{
+    display:flex;
 }
 
 .hotelbookingcard:hover{
