@@ -28,7 +28,7 @@
     width: 150px;
     padding: 10px;
     border-radius: 10px;
-    transition: 200ms;
+    transition: 300ms;
 }
 
 .hotelcard:hover{
@@ -70,6 +70,27 @@
 
 }
 
+.hotelbookingcard_input button{
+    color:#474747;
+    font-weight: bold;
+    background-color: white;
+    border-color: white;
+    border-radius: 10px;
+    padding:10px;
+    border: 1px solid #474747;
+    
+}
+
+.hotelbookingcard_input button:hover{
+    color:white;
+    background-color: #a628ec;
+    border: 1px solid white;
+    transition: 300ms;
+    
+    
+}
+
+
 
 
 
@@ -83,14 +104,11 @@
 
 
 .hotelbookingcard{
-    border: solid red 1px;
-    /* display:flex; */
-    /* justify-content: center; */
     margin:7.5px 15px;
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    transition: 200ms;
+    transition: 300ms;
 }
 .hotelbookingcard_column1{
     display:flex;

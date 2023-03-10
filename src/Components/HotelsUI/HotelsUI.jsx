@@ -87,11 +87,10 @@ function BookingHotel(props){
 
     const typeClick=()=>{
         dispatch(typeClicked(props.selected));
-        
       }
 
     return (
-        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"500px":"140px"}} onClick={typeClick}>
+        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"220px":"140px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
                 <div className="hotelbookingcard_right">
@@ -120,16 +119,29 @@ function BookingHotel(props){
             {(whichTypeClicked===props.selected)&&<div>
 
                 <h4>Details</h4>
-            <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
-                <input type="text" placeholder='Email ID'></input>
-                <input type="number" style={{marginLeft:"10px"}} placeholder='Room Number'></input>
-            </div>
-            <div className="hotelbookingcard_input"> 
-                
+
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                <div>
+                    <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
+                        <input type="text" placeholder='Email ID'></input>
+                        <input type="number" style={{marginLeft:"10px"}} placeholder='Room Number'></input>
+                    </div>
+                    <div className="hotelbookingcard_input"> 
+                        <input type="text" placeholder='Start Time'></input>
+                        <input type="number" style={{marginLeft:"10px"}} placeholder='End Time'></input>
+                    </div>
+                </div>
+
+                <div className="hotelbookingcard_input"> 
+                    <button>Book Now</button>
+                 </div>
+
+
             </div>
             
 
-
+            
+            
             </div>}
             
 
