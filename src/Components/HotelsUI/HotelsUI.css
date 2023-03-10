@@ -1,0 +1,46 @@
+.hotelsui{
+    display: flex;
+    width: 40vw;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding:7.5px 15px;
+
+}
+
+.hotelcard{
+    margin:7.5px 15px;
+    width: 150px;
+    border: solid red 1px;
+}
+
+.hotelcard img{
+    height: 100px;
+    width: 150px;
+    border-radius: 10px;
+}
+.hotelcard h4{
+    color: #474747;
+}
+
+.hotelcard p{
+    color: #999999;
+    font-size: 12px;
+}
+
+#price{
+    padding: 5px 0px;
+    color: #a628ec;
+}
+
+.hotelcard_icons{
+    display: flex;
+}
+.hotelcard_icons_row{
+    display:flex;
+    padding-right: 20px;
+}
+.hotelcard_icons p{
+
+    font-size: 10px;
+
+}

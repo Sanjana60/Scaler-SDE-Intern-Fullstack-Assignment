@@ -1,7 +1,8 @@
 .row{
     display: flex;
     justify-content: space-between;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+    align-items: end;
     
 }
 
@@ -16,7 +17,7 @@
     padding-left: 30px;
     color: #999999;
 }
-.row_left h4{
+.row_left h3{
     padding-left: 30px;
     color:#474747;
 }

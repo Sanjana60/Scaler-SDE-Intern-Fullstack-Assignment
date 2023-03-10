@@ -7,7 +7,7 @@ function Navbar() {
     <>
         <div className="row">
             <div className="row_left">
-                <h4>Hotel</h4>
+                <h3>Hotel</h3>
                 <p>Rent</p>
                 <p>Buy</p>
             </div>
