@@ -4,11 +4,8 @@ import { useState } from 'react'
 import { FaBed ,FaShower,FaHome} from 'react-icons/fa';
 import { IoIosArrowBack} from 'react-icons/io';
 import Rating from "../../widgets/Rating"
-
-
-// import 'react-times/css/material/default.css';
-// or you can use classic theme
-// import 'react-times/css/classic/default.css';
+import {useSelector,useDispatch} from "react-redux";
+import {typeClicked} from "../Slices/typeClickedSlice";
 
 
 function HotelsUI() {
@@ -81,14 +78,21 @@ function HotelCard({handleClick}){
 
 function BookingHotel(props){
 
-    const [value, setValue] = useState('10:00');
+    const whichTypeClicked=useSelector((state)=>state.whichTypeClicked.whichTypeClicked);
+
+    const dispatch=useDispatch();
+
+
+    const typeClick=()=>{
+        dispatch(typeClicked(props.selected));
+      }
 
     return (
-        <div className="hotelbookingcard" style={{height:"200px"}} onClick={()=>{console.log(props.selected)}}>
+        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"500px":"200px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
                 <div className="hotelbookingcard_right">
-                    <h4>{props.selected}</h4>
+                    <h4>{name}</h4>
                     <Rating rate={4}/>
                     <p>Nitikan Umbu</p>
                     <h4 id='bookingprice'>&#8377; 5000</h4>
