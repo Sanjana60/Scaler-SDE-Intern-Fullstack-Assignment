@@ -6,7 +6,7 @@ import { IoIosArrowBack} from 'react-icons/io';
 import Rating from "../../widgets/Rating"
 import {useSelector,useDispatch} from "react-redux";
 import {typeClicked} from "../Slices/typeClickedSlice";
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, onSnapshot, query, updateDoc ,doc} from 'firebase/firestore';
 import {db} from "../../firebase"
 
 function HotelsUI() {
@@ -57,7 +57,7 @@ function HotelsUI() {
                     <IoIosArrowBack/>
                     <p>Back to Home Screen</p>
                 </div>
-                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} state={hotellist[hotelselected].state} selected={type.name} type={type}/>)}</div>
+                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} hotelData={hotellist[hotelselected]} selected={type.name} type={type}/>)}</div>
             </div>
         }
     </>
@@ -74,6 +74,7 @@ function HotelCard({handleClick,hotel}){
             <img  src={hotel.img} alt="hii" />
             <h4>{hotel.name}</h4>
             <p>{hotel.state}</p>
+            <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {hotel.totalavailable}</p>
             <h4 id='price'>&#8377; 5000</h4>
             <div className="hotelcard_icons">
                 <div className="hotelcard_icons_row">
@@ -111,6 +112,16 @@ function BookingHotel(props){
         dispatch(typeClicked(props.selected));
       }
 
+
+      const booknow= async ()=>{
+        await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
+
+            totalavailable:props.hotelData.totalavailable-1
+
+        })
+      }
+
+
     return (
         <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
@@ -118,7 +129,7 @@ function BookingHotel(props){
                 <div className="hotelbookingcard_right">
                     <h4>{props.type.name}</h4>
                     <Rating rate={4}/>
-                    <p>{props.state}</p>
+                    <p>{props.hotelData.state}</p>
                     <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {props.type.left}</p>
                     <h4 id='bookingprice'>&#8377; {props.type.price}/hr</h4>
                     <div className="hotelbookingcard_icons">
@@ -156,7 +167,7 @@ function BookingHotel(props){
                 </div>
 
                 <div className="hotelbookingcard_input"> 
-                    <button>Book Now</button>
+                    <button onClick={booknow}>Book Now</button>
                  </div>
 
 
