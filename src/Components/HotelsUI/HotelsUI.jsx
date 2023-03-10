@@ -7,7 +7,6 @@ import Rating from "../../widgets/Rating"
 import {useSelector,useDispatch} from "react-redux";
 import {typeClicked} from "../Slices/typeClickedSlice";
 
-
 function HotelsUI() {
     const names = ['Bruce', 'Clark', 'Diana','Bruce', 'Clark', 'Diana','Bruce', 'Clark', 'Diana']
     const types = ['Type A', 'Type B', 'Type C']
@@ -78,24 +77,21 @@ function HotelCard({handleClick}){
 
 function BookingHotel(props){
 
+    const [value, setValue] = useState('10:00');
+
+
     const whichTypeClicked=useSelector((state)=>state.whichTypeClicked.whichTypeClicked);
 
     const dispatch=useDispatch();
 
 
     const typeClick=()=>{
-        if(whichTypeClicked===props.selected){
-            dispatch(typeClicked("None"));
-
-        }
-        else{
-            dispatch(typeClicked(props.selected));
-        }
+        dispatch(typeClicked(props.selected));
         
       }
 
     return (
-        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"500px":"210px"}} onClick={typeClick}>
+        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"500px":"140px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
                 <div className="hotelbookingcard_right">
@@ -120,14 +116,27 @@ function BookingHotel(props){
 
                 </div>
             </div>
-            <h4>Details</h4>
+
+            {(whichTypeClicked===props.selected)&&<div>
+
+                <h4>Details</h4>
             <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
                 <input type="text" placeholder='Email ID'></input>
                 <input type="number" style={{marginLeft:"10px"}} placeholder='Room Number'></input>
             </div>
             <div className="hotelbookingcard_input"> 
-                <input type="number" placeholder='Room Number'></input>
+                
             </div>
+            
+
+
+            </div>}
+            
+
+
+
+
+            
             
 
 
