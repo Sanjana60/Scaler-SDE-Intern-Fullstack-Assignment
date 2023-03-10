@@ -110,9 +110,9 @@ function BookingHotel(props){
                 </div>
             </div>
             <h4>Details</h4>
-            <div className="hotelbookingcard_input"> 
+            <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
                 <input type="text" placeholder='Email ID'></input>
-                <input type="number" placeholder='Room Number'></input>
+                <input type="number" style={{marginLeft:"10px"}} placeholder='Room Number'></input>
             </div>
             <div className="hotelbookingcard_input"> 
                 <input type="number" placeholder='Room Number'></input>

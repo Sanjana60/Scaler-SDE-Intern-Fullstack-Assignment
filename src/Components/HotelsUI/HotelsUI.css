@@ -124,6 +124,10 @@
 
 }
 
+.hotelbookingcard_input input{
+    width: 120px;
+    padding: 5px;
+}
 
 .star{
     display:flex;
