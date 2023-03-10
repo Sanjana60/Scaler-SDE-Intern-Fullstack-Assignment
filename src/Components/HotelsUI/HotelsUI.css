@@ -7,6 +7,22 @@
 
 }
 
+.hotelsui_backarrow{
+    display: flex;
+    padding-left: 20px;
+    align-items: center;
+    color:#474747;
+}
+
+.hotelsui_backarrow p{
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    
+    
+}
+
+
 .hotelcard{
     margin:7.5px 15px;
     width: 150px;
@@ -126,7 +142,11 @@
 
 .hotelbookingcard_input input{
     width: 120px;
+    border-radius: 8px;
     padding: 5px;
+    border-color: #999999;
+    border-width: thin;
+    
 }
 
 .star{
