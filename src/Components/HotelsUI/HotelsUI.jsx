@@ -23,12 +23,12 @@ function HotelsUI() {
         const unsubscribe=onSnapshot(q,(querySnapshot)=>{
             let hotellist=[];
             querySnapshot.forEach((doc)=>{
-                console.log("doc");
+                // console.log("doc");
                 hotellist.push({...doc.data(),id:doc.id})
             });
 
             sethotellist(hotellist)
-            console.log(hotellist[0].type)
+            // console.log(hotellist[0].type)
 
         })
     
@@ -57,7 +57,7 @@ function HotelsUI() {
                     <IoIosArrowBack/>
                     <p>Back to Home Screen</p>
                 </div>
-                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} hotelData={hotellist[hotelselected]} selected={type.name} type={type}/>)}</div>
+                <div className="hotelsui">{hotellist[hotelselected].type.map((type,i) => <BookingHotel key={i} hotelData={hotellist[hotelselected]} index={i} selected={type.name} type={type}/>)}</div>
             </div>
         }
     </>
@@ -114,9 +114,20 @@ function BookingHotel(props){
 
 
       const booknow= async ()=>{
+
+        let type_copy = props.hotelData.type.map((element,i) => {
+            if (i === props.index) {
+              element.left = element.left-1;
+            } 
+          return element;
+          });
+
+
+
         await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
 
-            totalavailable:props.hotelData.totalavailable-1
+            totalavailable:props.hotelData.totalavailable-1,
+            type:type_copy,
 
         })
       }
@@ -125,13 +136,13 @@ function BookingHotel(props){
     return (
         <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
-                <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
+                <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" style={{filter: (props.type.left===0)?"grayscale(100%)":"grayscale(0%)"}} />
                 <div className="hotelbookingcard_right">
                     <h4>{props.type.name}</h4>
-                    <Rating rate={4}/>
+                    <Rating rate={4} iscolor={(props.type.left==0)?false:true}/>
                     <p>{props.hotelData.state}</p>
                     <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {props.type.left}</p>
-                    <h4 id='bookingprice'>&#8377; {props.type.price}/hr</h4>
+                    <h4 id='bookingprice' style={{filter: (props.type.left===0)?"grayscale(100%)":"grayscale(0%)"}}>&#8377; {props.type.price}/hr</h4>
                     <div className="hotelbookingcard_icons">
                         <div className="hotelcard_icons_row">
                             <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
@@ -166,8 +177,8 @@ function BookingHotel(props){
                     </div>
                 </div>
 
-                <div className="hotelbookingcard_input"> 
-                    <button onClick={booknow}>Book Now</button>
+                <div className={props.type.left===0?"hotelbookingcard_input_black":"hotelbookingcard_input"}> 
+                    <button onClick={(props.type.left===0)?()=>{}:booknow} >Book Now</button>
                  </div>
 
 

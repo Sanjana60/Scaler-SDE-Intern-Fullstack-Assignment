@@ -5,7 +5,7 @@ function Rating(props) {
     return (
         <>
             <div className="star">
-                {[...Array(props.rate)].map((e, i) => <div key={i}> <img src={Star} alt="" style={{height:"10px"}}/></div>)}
+                {[...Array(props.rate)].map((e, i) => <div key={i}> <img src={Star} alt="" style={{filter: (!props.iscolor)?"grayscale(100%)":"grayscale(0%)",height:"10px"}}/></div>)}
             </div>
         </>
         )
