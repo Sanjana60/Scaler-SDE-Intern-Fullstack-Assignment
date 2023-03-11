@@ -90,7 +90,15 @@
     
     
 }
+
+
+#hotelbookingcard_input{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
 .hotelbookingcard_input_black button{
+    
     color:#474747;
     font-weight: bold;
     background-color: white;
@@ -102,6 +110,7 @@
 }
 .hotelbookingcard_input_black button:hover{
     color:white;
+    
     background-color: #474747;
     border: 1px solid white;
     transition: 300ms;

@@ -212,7 +212,7 @@ function BookingHotel(props){
                     </div>
                 </div>
 
-                <div className={props.type.left===0?"hotelbookingcard_input_black":"hotelbookingcard_input"}> 
+                <div className={props.type.left===0?"hotelbookingcard_input_black":"hotelbookingcard_input"} id="hotelbookingcard_input"> 
                     {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
                     <button onClick={(props.type.left===0)?()=>{}:booknow} >Book Now</button>
                     
