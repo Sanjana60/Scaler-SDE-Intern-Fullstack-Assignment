@@ -115,22 +115,22 @@ function BookingHotel(props){
 
 
       const booknow= async ()=>{
-        console.log(room)
+        console.log(starttime)
         if(name!="" && room !="" && starttime!="" &&endtime!=""){
-            setfillformerror(false);
+            // setfillformerror(false);
 
-            let type_copy = props.hotelData.type.map((element,i) => {
-                if (i === props.index) {
-                  element.left = element.left-1;
-                } 
-              return element;
-              });
-            await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
+            // let type_copy = props.hotelData.type.map((element,i) => {
+            //     if (i === props.index) {
+            //       element.left = element.left-1;
+            //     } 
+            //   return element;
+            //   });
+            // await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
     
-                totalavailable:props.hotelData.totalavailable-1,
-                type:type_copy,
+            //     totalavailable:props.hotelData.totalavailable-1,
+            //     type:type_copy,
     
-            })
+            // })
 
 
         }
@@ -151,6 +151,7 @@ function BookingHotel(props){
 
       const handleChangeStart = (event) => {
         setstarttime((event.target.value));
+        // console.log(event.target.value);
       };
 
       const handleChangeEnd = (event) => {
@@ -196,8 +197,8 @@ function BookingHotel(props){
                         <input type="number" onChange={handleChangeRoom} style={{marginLeft:"10px"}} placeholder='Room Number'></input>
                     </div>
                     <div className="hotelbookingcard_input"> 
-                        <input type="time" onChange={handleChangeStart} placeholder='Start Time'></input>
-                        <input type="time" onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
+                        <input type="datetime-local" onChange={handleChangeStart} placeholder='Start Time'></input>
+                        <input type="datetime-local" onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
                     </div>
                 </div>
 

@@ -12,7 +12,7 @@ import {typeClicked} from "../Slices/typeClickedSlice";
 
 import { IoIosArrowBack} from 'react-icons/io';
 
-import { collection, onSnapshot, query, updateDoc ,doc} from 'firebase/firestore';
+import { collection, onSnapshot, query, updateDoc ,doc,Timestamp} from 'firebase/firestore';
 import {db} from "../../firebase"
 
 
@@ -59,7 +59,12 @@ function BookingHotel(props){
   // const [room, setroom] = useState(-1);
   // const [starttime, setstarttime] = useState("");
   // const [endtime, setendtime] = useState("");
-  const [fillformerror, setfillformerror] = useState(false);
+    
+    const [email, setemail] = useState(props.hotel.email);
+    const [room, setroom] = useState(props.hotel.roomnumber);
+    const [starttime, setstarttime] = useState(props.hotel.starttime.toDate().toISOString().substring(0, 16));
+    const [endtime, setendtime] = useState(props.hotel.endtime.toDate().toISOString().substring(0, 16));
+    const [fillformerror, setfillformerror] = useState(false);
 
   const [dialog, setdialog] = useState(false);
 
@@ -72,35 +77,8 @@ function BookingHotel(props){
     }
 
 
-    const booknow= async ()=>{
-      // console.log(room)
-      // if(name!="" && room !="" && starttime!="" &&endtime!=""){
-      //     setfillformerror(false);
-
-      //     let type_copy = props.hotelData.type.map((element,i) => {
-      //         if (i === props.index) {
-      //           element.left = element.left-1;
-      //         } 
-      //       return element;
-      //       });
-      //     await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
-  
-      //         totalavailable:props.hotelData.totalavailable-1,
-      //         type:type_copy,
-  
-      //     })
-
-
-      // }
-      // else{
-      //     setfillformerror(true);
-      // }
-
-      
-    }
-
-    const handleChangeName = (event) => {
-      setname(event.target.value);
+    const handleChangeEmail = (event) => {
+      setemail(event.target.value);
     };
 
     const handleChangeRoom = (event) => {
@@ -109,6 +87,7 @@ function BookingHotel(props){
 
     const handleChangeStart = (event) => {
       setstarttime((event.target.value));
+
     };
 
     const handleChangeEnd = (event) => {
@@ -122,6 +101,46 @@ function BookingHotel(props){
 
     const dialogclose = () => {
       setdialog(true);
+    };
+
+    const confirm = async () => {
+
+        if(email!="" && room !="" && starttime!="" &&endtime!=""){
+          setfillformerror(false);
+
+          console.log(starttime);
+          
+          var starttimestamp = Timestamp.fromDate(props.hotel.starttime.value) 
+          // var endtimestamp = Timestamp.fromDate(endtime) 
+
+          console.log(starttimestamp)
+          // let type_copy={...props.hotel,email:email,roomnumber:room,starttime: starttimestamp,endtime:endtimestamp}
+          // console.log(type_copy)
+
+
+          // let type_copy = props.hotel.map((element,i) => {
+          //   if (element === "bed") {
+          //     element.left = element.left-1;
+          //   } 
+          // return element;
+          // });
+          // console.log(props.hotel.id);
+
+          
+        // await updateDoc(doc(db,"BookedHotels",props.hotel.id),{
+
+        //   email:email,
+        //   roomnumber:room,
+        //   starttime: starttimestamp,
+        //   endtime:endtimestamp,
+
+        // })
+        dialogclose();
+
+      }
+      else{
+          setfillformerror(true);
+      }
     };
 
   return (
@@ -159,28 +178,22 @@ function BookingHotel(props){
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
               <div>
                   <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
-                      <input type="text" value={props.hotel.email} onChange={handleChangeName} placeholder='Email ID' ></input>
-                      <input type="number" value={props.hotel.roomnumber} onChange={handleChangeRoom} style={{marginLeft:"10px"}} placeholder='Room Number'></input>
-                  </div>
+                      <input type="text" defaultValue={props.hotel.email} onChange={handleChangeEmail} placeholder='Email ID' ></input>
+                      <input type="number" defaultValue={props.hotel.roomnumber} onChange={handleChangeRoom} style={{marginLeft:"10px"}} placeholder='Room Number'></input>
+                  </div>  
                   <div className="hotelbookingcard_input"> 
-                      <input type="time" onChange={handleChangeStart} placeholder='Start Time'></input>
-                      <input type="time" onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
+                      <input type="datetime-local" defaultValue={props.hotel.starttime.toDate().toISOString().substring(0, 16)} onChange={handleChangeStart} placeholder='Start Time'></input>
+                      <input type="datetime-local"  defaultValue={props.hotel.endtime.toDate().toISOString().substring(0, 16)} onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
                   </div>
               </div>
-
               <div className={"hotelbookingcard_input"} id="hotelbookingcard_input"> 
                   {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
                   {(dialog)?<button onClick={dialogopen}>Edit</button>:<div style={{display:"flex"}}>
-                    <button onClick={dialogclose} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
+                    <button onClick={confirm} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
                     <button onClick={dialogclose} >Cancel</button>
                   </div>}
                   <button  >Delete</button>
 
-                  
-
-                  
-                  
-                  
                </div>
 
 
