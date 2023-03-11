@@ -4,7 +4,7 @@ import { Map, GoogleApiWrapper } from 'google-maps-react';
 const mapStyles = {
    height: "1170px",
    overflowY: "auto",
-   zIndex:"0",
+   zIndex:"-1",
    left: "46%",
     
 

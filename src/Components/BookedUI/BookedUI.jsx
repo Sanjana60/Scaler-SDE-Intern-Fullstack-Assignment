@@ -44,10 +44,6 @@ function Booked() {
 
   return (
     <div>
-        <div className="hotelsui_backarrow">
-            <IoIosArrowBack/>
-            <p>Back to Home Screen</p>
-        </div>
         <div className="hotelsui">{bookedlist.map((hotel,i) => <BookingHotel key={i} hotel={hotel} index={i} selected={hotel.name}/>)}</div>
     </div>
   )
