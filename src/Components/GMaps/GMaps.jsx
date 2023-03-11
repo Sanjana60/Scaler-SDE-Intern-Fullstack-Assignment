@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
-   height: "1700px",
+   height: "1170px",
    overflowY: "auto",
+   zIndex:"0",
    left: "46%",
     
 

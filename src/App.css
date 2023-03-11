@@ -3,11 +3,12 @@
 * {
   margin: 0px;
   padding: 0px ;
+  z-index:100;
 }
 
 
 .LeftSide{
-  z-index: 999;
+  z-index: 998;
   border: solid 1px black;
   margin:0px;
   background-color: white;
@@ -18,6 +19,7 @@
 }
 .row{
   display: flex;
+  z-index: 999;
   justify-content: space-between;
   padding-bottom: 30px;
   align-items: end;

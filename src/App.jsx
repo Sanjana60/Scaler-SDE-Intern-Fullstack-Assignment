@@ -23,11 +23,8 @@ function App() {
     <>
       <Router>
         <div className="Main">
-          {/* <div className="RightSide">
-            
-          </div> */}
+          <GMaps/>
           <div className="LeftSide">
-            <GMaps/>
             <div className="row">
               <div className="row_left">
                 <Link to="/" style={{ textDecoration: "none" }}><h3>Hotel</h3></Link>
