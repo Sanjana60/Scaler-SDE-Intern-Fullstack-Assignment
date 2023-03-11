@@ -76,6 +76,9 @@ function BookingHotel(props){
       dispatch(typeClicked(props.selected));
     }
 
+    
+    
+
 
     const handleChangeEmail = (event) => {
       setemail(event.target.value);
@@ -106,35 +109,31 @@ function BookingHotel(props){
     const confirm = async () => {
 
         if(email!="" && room !="" && starttime!="" &&endtime!=""){
+
           setfillformerror(false);
 
-          console.log(starttime);
-          
-          var starttimestamp = Timestamp.fromDate(props.hotel.starttime.value) 
-          // var endtimestamp = Timestamp.fromDate(endtime) 
-
-          console.log(starttimestamp)
-          // let type_copy={...props.hotel,email:email,roomnumber:room,starttime: starttimestamp,endtime:endtimestamp}
-          // console.log(type_copy)
 
 
-          // let type_copy = props.hotel.map((element,i) => {
-          //   if (element === "bed") {
-          //     element.left = element.left-1;
-          //   } 
-          // return element;
-          // });
-          // console.log(props.hotel.id);
+          const starttimestamp = new Date(starttime).getTime();
+          const endtimestamp = new Date(endtime).getTime();
+
+
+
+
+          const firebaseStartTimestamp = new Timestamp(parseInt(starttimestamp/1000),0)
+          const firebaseEndTimestamp = new Timestamp(parseInt(endtimestamp/1000),0)
 
           
-        // await updateDoc(doc(db,"BookedHotels",props.hotel.id),{
 
-        //   email:email,
-        //   roomnumber:room,
-        //   starttime: starttimestamp,
-        //   endtime:endtimestamp,
+          
+        await updateDoc(doc(db,"BookedHotels",props.hotel.id),{
 
-        // })
+          email:email,
+          roomnumber:room,
+          starttime: firebaseStartTimestamp,
+          endtime:firebaseEndTimestamp,
+
+        })
         dialogclose();
 
       }
@@ -183,7 +182,7 @@ function BookingHotel(props){
                   </div>  
                   <div className="hotelbookingcard_input"> 
                       <input type="datetime-local" defaultValue={props.hotel.starttime.toDate().toISOString().substring(0, 16)} onChange={handleChangeStart} placeholder='Start Time'></input>
-                      <input type="datetime-local"  defaultValue={props.hotel.endtime.toDate().toISOString().substring(0, 16)} onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
+                      <input type="datetime-local"  defaultValue={props.hotel.endtime.toDate().toISOString().substring(0,16)} onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
                   </div>
               </div>
               <div className={"hotelbookingcard_input"} id="hotelbookingcard_input"> 
