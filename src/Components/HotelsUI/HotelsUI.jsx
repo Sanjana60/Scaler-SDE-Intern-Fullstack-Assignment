@@ -2,6 +2,7 @@ import React from 'react'
 import './HotelsUI.css'
 import { useState,useEffect } from 'react'
 import { FaBed ,FaShower,FaHome} from 'react-icons/fa';
+import {Alert} from "@mui/material" 
 
 
 import Rating from "../../widgets/Rating"
@@ -196,11 +197,14 @@ function BookingHotel(props){
       };
 
     return (
-        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
+        <div className="hotelbookingcard" style={{position:"relative",height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
             <div className="hotelbookingcard_column1">
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" style={{filter: (props.type.left===0)?"grayscale(100%)":"grayscale(0%)"}} />
                 <div className="hotelbookingcard_right">
                     <h4>{props.type.name}</h4>
+                    <Alert style={{position:"absolute",top:"0",right:"0"}} severity="success">
+                            Booking Confired
+                    </Alert>
                     <Rating rate={4} iscolor={(props.type.left==0)?false:true}/>
                     <p>{props.hotelData.state}</p>
                     <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {props.type.left}</p>
@@ -242,6 +246,7 @@ function BookingHotel(props){
                 <div className={props.type.left===0?"hotelbookingcard_input_black":"hotelbookingcard_input"} id="hotelbookingcard_input"> 
                     {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
                     <button onClick={(props.type.left===0)?()=>{}:booknow} >Book Now</button>
+                    
                     
                  </div>
 

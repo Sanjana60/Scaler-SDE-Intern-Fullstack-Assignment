@@ -3,6 +3,7 @@ import { HiXMark } from "react-icons/hi2";
 import { useState,useEffect } from 'react'
 
 
+
 import './BookedUI.css'
 import { FaBed ,FaShower,FaHome} from 'react-icons/fa';
 import Rating from "../../widgets/Rating"
@@ -161,15 +162,22 @@ function BookingHotel(props){
     };
 
     const confirmdel = async () => {
+      
+      
       await deleteDoc(doc(db,"BookedHotels",props.hotel.id))
+    
   };
   
 
 
   return (
       <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
+       
+
+       
           <div className="hotelbookingcard_column1">
               <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" />
+              
               <div className="hotelbookingcard_right">
                   <h4>{props.hotel.name}</h4>
                   <Rating rate={4} iscolor={true}/>
@@ -181,6 +189,7 @@ function BookingHotel(props){
                           <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
                           <p>{props.hotel.bed}</p>
                       </div>
+                      
                       <div className="hotelbookingcard_icons_row">
                           <FaShower style={{paddingRight:"3px",color:"#474747"}}/>
                           <p>{props.hotel.shower}</p>
@@ -231,6 +240,8 @@ function BookingHotel(props){
       </div>
   )
 }
+
+
 
 
 export default Booked 
