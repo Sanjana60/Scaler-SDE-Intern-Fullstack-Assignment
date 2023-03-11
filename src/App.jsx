@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import Searchbar from './Components/Searchbar/Searchbar'
 import HotelsUI from './Components/HotelsUI/HotelsUI'
+import BookedUI from './Components/BookedUI/BookedUI'
 import CircularIcon from "./assets/CircularIcon.jpeg"
 
 
@@ -35,9 +36,6 @@ function App() {
             <Route path="/booked" element={<Booked />} />
           </Routes>
           </div>
-          
-
-
       </Router>
      
     </>
@@ -58,7 +56,7 @@ function Booked() {
 
   return (
     <>
-        <div>hii</div>
+        <BookedUI/>
     </>
   )
 }
