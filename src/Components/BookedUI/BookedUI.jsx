@@ -1,7 +1,7 @@
 import React from 'react'
+import { HiXMark } from "react-icons/hi2";
 import { useState,useEffect } from 'react'
 
-import Dialog from '../../widgets/Dialog';
 
 import './BookedUI.css'
 import { FaBed ,FaShower,FaHome} from 'react-icons/fa';
@@ -114,7 +114,15 @@ function BookingHotel(props){
     const handleChangeEnd = (event) => {
       setendtime((event.target.value));
     };
-    var x="aerrrr";
+
+
+    const dialogopen = () => {
+      setdialog(false);
+    };
+
+    const dialogclose = () => {
+      setdialog(true);
+    };
 
   return (
       <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
@@ -162,8 +170,15 @@ function BookingHotel(props){
 
               <div className={"hotelbookingcard_input"} id="hotelbookingcard_input"> 
                   {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
-                  <button onClick={()=>{setdialog(true)}} >Edit</button>
+                  {(dialog)?<button onClick={dialogopen}>Edit</button>:<div style={{display:"flex"}}>
+                    <button onClick={dialogclose} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
+                    <button onClick={dialogclose} >Cancel</button>
+                  </div>}
                   <button  >Delete</button>
+
+                  
+
+                  
                   
                   
                </div>
@@ -171,9 +186,6 @@ function BookingHotel(props){
 
           </div>
           </div>}
-          <Dialog isOpen={dialog} onClose={(e) =>{setdialog(false)}}>
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste a ipsam repellendus commodi ad, fugit id magnam inventore laudantium autem delectus praesentium incidunt debitis, numquam dicta eveniet obcaecati, itaque quidem?
-                  </Dialog>
       </div>
   )
 }

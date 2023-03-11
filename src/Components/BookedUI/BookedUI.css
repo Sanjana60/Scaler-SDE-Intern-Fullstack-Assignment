@@ -22,6 +22,14 @@
     
 }
 
+#hotelbookingcard_input_confirmbutton:hover{
+    color:white;
+    background-color: red;
+    border: 1px solid white;
+    transition: 300ms;
+    
+    
+}
 
 #hotelbookingcard_input{
     display: flex;
