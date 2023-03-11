@@ -1,0 +1,126 @@
+import React from 'react'
+import Rating from "../../widgets/Rating"
+import {useSelector,useDispatch} from "react-redux";
+import { useState,useEffect } from 'react'
+import { FaBed ,FaShower,FaHome} from 'react-icons/fa';
+import {typeClicked} from "../Slices/typeClickedSlice";
+
+function BookingHotel(props){
+
+    const [name, setname] = useState("");
+    const [room, setroom] = useState(-1);
+    const [starttime, setstarttime] = useState("");
+    const [endtime, setendtime] = useState("");
+    const [fillformerror, setfillformerror] = useState(false);
+
+
+
+    const whichTypeClicked=useSelector((state)=>state.whichTypeClicked.whichTypeClicked);
+    const dispatch=useDispatch();
+    const typeClick=()=>{
+        dispatch(typeClicked(props.selected));
+      }
+
+
+      const booknow= async ()=>{
+        console.log(room)
+        if(name!="" && room !="" && starttime!="" &&endtime!=""){
+            setfillformerror(false);
+
+            let type_copy = props.hotelData.type.map((element,i) => {
+                if (i === props.index) {
+                  element.left = element.left-1;
+                } 
+              return element;
+              });
+            await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
+    
+                totalavailable:props.hotelData.totalavailable-1,
+                type:type_copy,
+    
+            })
+
+
+        }
+        else{
+            setfillformerror(true);
+        }
+
+        
+      }
+
+      const handleChangeName = (event) => {
+        setname(event.target.value);
+      };
+
+      const handleChangeRoom = (event) => {
+        setroom(event.target.value);
+      };
+
+      const handleChangeStart = (event) => {
+        setstarttime((event.target.value));
+      };
+
+      const handleChangeEnd = (event) => {
+        setendtime((event.target.value));
+      };
+
+    return (
+        <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
+            <div className="hotelbookingcard_column1">
+                <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" style={{filter: (props.type.left===0)?"grayscale(100%)":"grayscale(0%)"}} />
+                <div className="hotelbookingcard_right">
+                    <h4>{props.type.name}</h4>
+                    <Rating rate={4} iscolor={(props.type.left==0)?false:true}/>
+                    <p>{props.hotelData.state}</p>
+                    <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {props.type.left}</p>
+                    <h4 id='bookingprice' style={{filter: (props.type.left===0)?"grayscale(100%)":"grayscale(0%)"}}>&#8377; {props.type.price}/hr</h4>
+                    <div className="hotelbookingcard_icons">
+                        <div className="hotelcard_icons_row">
+                            <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
+                            <p>{props.type.bed}</p>
+                        </div>
+                        <div className="hotelbookingcard_icons_row">
+                            <FaShower style={{paddingRight:"3px",color:"#474747"}}/>
+                            <p>{props.type.shower}</p>
+                        </div>
+                        <div className="hotelbookingcard_icons_row">
+                            <FaHome style={{paddingRight:"3px",color:"#474747"}}/>
+                            <p>{props.type.size}m<sup>2</sup></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {(whichTypeClicked===props.selected)&&<div>
+
+                <h4>Details</h4>
+
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                <div>
+                    <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
+                        <input type="text" onChange={handleChangeName} placeholder='Email ID' ></input>
+                        <input type="number" onChange={handleChangeRoom} style={{marginLeft:"10px"}} placeholder='Room Number'></input>
+                    </div>
+                    <div className="hotelbookingcard_input"> 
+                        <input type="time" onChange={handleChangeStart} placeholder='Start Time'></input>
+                        <input type="time" onChange={handleChangeEnd} style={{marginLeft:"10px"}} placeholder='End Time'></input>
+                    </div>
+                </div>
+
+                <div className={props.type.left===0?"hotelbookingcard_input_black":"hotelbookingcard_input"} id="hotelbookingcard_input"> 
+                    {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
+                    <button onClick={(props.type.left===0)?()=>{}:booknow} >Book Now</button>
+                    
+                 </div>
+
+
+            </div>
+            </div>}
+        </div>
+    )
+}
+
+export default BookingHotel
+
