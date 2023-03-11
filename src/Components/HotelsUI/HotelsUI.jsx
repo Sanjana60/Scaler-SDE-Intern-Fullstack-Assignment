@@ -114,7 +114,7 @@ function BookingHotel(props){
 
         setTimeout(() => {
             setAlertVisible(false);
-          }, 5000);
+          }, 3000);
 
 
     }
@@ -219,7 +219,7 @@ function BookingHotel(props){
                 <img  src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="hii" style={{filter: (props.type.left===0)?"grayscale(100%)":"grayscale(0%)"}} />
                 <div className="hotelbookingcard_right">
                     <h4>{props.type.name}</h4>
-                    {alertvisible ? <div><Alert style={{position:"absolute",top:"0",right:"0",}} severity="success">Booking Confired</Alert></div> : <div />}
+                    {alertvisible ? <div><Alert style={{position:"absolute",top:"0",right:"0",transition:"200ms"}} severity="success">Booking Confired</Alert></div> : <div />}
                     
                     <Rating rate={4} iscolor={(props.type.left==0)?false:true}/>
                     <p>{props.hotelData.state}</p>

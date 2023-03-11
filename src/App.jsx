@@ -4,8 +4,10 @@ import './App.css'
 import Searchbar from './Components/Searchbar/Searchbar'
 import HotelsUI from './Components/HotelsUI/HotelsUI'
 import BookedUI from './Components/BookedUI/BookedUI'
+import GMaps from './Components/GMaps/GMaps'
 import CircularIcon from "./assets/CircularIcon.jpeg"
 
+import React from 'react';
 
 import {
   BrowserRouter as Router,
@@ -20,24 +22,33 @@ function App() {
   return (
     <>
       <Router>
+        <div className="Main">
+          {/* <div className="RightSide">
+            
+          </div> */}
           <div className="LeftSide">
+            <GMaps/>
             <div className="row">
               <div className="row_left">
-                  <Link to="/" style={{textDecoration:"none"}}><h3>Hotel</h3></Link>
-                  <Link to="/booked" style={{textDecoration:"none"}}><p>Booked</p></Link>
+                <Link to="/" style={{ textDecoration: "none" }}><h3>Hotel</h3></Link>
+                <Link to="/booked" style={{ textDecoration: "none" }}><p>Booked</p></Link>
               </div>
               <div className="row_right">
-                  <img src={CircularIcon} />
+                <img src={CircularIcon} />
               </div>
             </div>
-            <Searchbar/>
+            <Searchbar />
             <Routes>
-            <Route path="/" element={<Hotel />} />
-            <Route path="/booked" element={<Booked />} />
-          </Routes>
+              <Route path="/" element={<Hotel />} />
+              <Route path="/booked" element={<Booked />} />
+            </Routes>
           </div>
-      </Router>
-     
+          
+        </div>
+
+
+      </Router >
+
     </>
   )
 }
@@ -47,7 +58,7 @@ function Hotel() {
 
   return (
     <>
-        <HotelsUI/>
+      <HotelsUI />
     </>
   )
 }
@@ -56,7 +67,7 @@ function Booked() {
 
   return (
     <>
-        <BookedUI/>
+      <BookedUI />
     </>
   )
 }
