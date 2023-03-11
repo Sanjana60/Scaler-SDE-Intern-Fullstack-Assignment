@@ -67,8 +67,8 @@ function BookingHotel(props){
     const [fillformerror, setfillformerror] = useState(false);
     const [shownewprice, setshownewprice] = useState(false);
 
-  const [dialog, setdialog] = useState(false);
-  const [dialogdel, setdialogdel] = useState(false);
+  const [dialog, setdialog] = useState(true);
+  const [dialogdel, setdialogdel] = useState(true);
 
 
 
@@ -139,6 +139,7 @@ function BookingHotel(props){
           roomnumber:room,
           starttime: firebaseStartTimestamp,
           endtime:firebaseEndTimestamp,
+          bookedprice:props.hotel.bookedprice+20,
 
         })
         dialogclose();
@@ -173,7 +174,7 @@ function BookingHotel(props){
                   <Rating rate={4} iscolor={true}/>
                   <p>{props.hotel.state}</p>
                   {/* <p style={{color:"#474747",fontWeight:"bold"}}>Rooms Available - {props.type.left}</p> */}
-                  <h4 id='bookingprice' >&#8377; {props.hotel.bookedprice}/hr</h4>
+                  <h4 id='bookingprice' >Booked Price : &#8377; {props.hotel.bookedprice}/hr</h4>
                   <div className="hotelbookingcard_icons">
                       <div className="hotelcard_icons_row">
                           <FaBed style={{paddingRight:"3px",color:"#474747"}}/>
@@ -195,8 +196,9 @@ function BookingHotel(props){
           {(whichTypeClicked===props.selected)&&<div>
 
               <h4>Details</h4>
+              
 
-          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+          <div style={{display:"flex",alignItems:"start",justifyContent:"space-between"}}>
               <div>
                   <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
                       <input type="text" defaultValue={props.hotel.email} onChange={handleChangeEmail} placeholder='Email ID' ></input>
@@ -208,8 +210,7 @@ function BookingHotel(props){
                   </div>
               </div>
               <div className={"hotelbookingcard_input"} id="hotelbookingcard_input"> 
-                  {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
-                  {shownewprice&&<p style={{paddingBottom:"10px",color:"red"}}>cost you extra</p>}
+                  
                   {(dialog)?<button onClick={dialogopen}>Edit</button>:<div style={{display:"flex"}}>
                     <button onClick={confirm} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
                     <button onClick={dialogclose} >Cancel</button>
@@ -218,6 +219,8 @@ function BookingHotel(props){
                     <button onClick={confirmdel} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
                     <button onClick={dialogclosedel} >Cancel</button>
                   </div>}
+                  {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
+                  {shownewprice&&<p style={{paddingBottom:"10px",color:"red"}}>Edit Cost &#8377; 20 </p>}
 
                </div>
 
