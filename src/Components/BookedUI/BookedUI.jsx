@@ -65,8 +65,10 @@ function BookingHotel(props){
     const [starttime, setstarttime] = useState(props.hotel.starttime.toDate().toISOString().substring(0, 16));
     const [endtime, setendtime] = useState(props.hotel.endtime.toDate().toISOString().substring(0, 16));
     const [fillformerror, setfillformerror] = useState(false);
+    const [shownewprice, setshownewprice] = useState(false);
 
   const [dialog, setdialog] = useState(false);
+  const [dialogdel, setdialogdel] = useState(false);
 
 
 
@@ -100,17 +102,22 @@ function BookingHotel(props){
 
     const dialogopen = () => {
       setdialog(false);
+      setshownewprice(true);
     };
 
     const dialogclose = () => {
       setdialog(true);
+      setshownewprice(false);
+      setfillformerror(false);
     };
 
     const confirm = async () => {
+        setshownewprice(false);
 
         if(email!="" && room !="" && starttime!="" &&endtime!=""){
 
           setfillformerror(false);
+          
 
 
 
@@ -141,6 +148,21 @@ function BookingHotel(props){
           setfillformerror(true);
       }
     };
+
+
+
+    const dialogopendel = () => {
+      setdialogdel(false);
+    };
+
+    const dialogclosedel = () => {
+      setdialogdel(true);
+    };
+
+    const confirmdel = async () => {
+
+      //delete bs
+  };
 
   return (
       <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>
@@ -187,11 +209,15 @@ function BookingHotel(props){
               </div>
               <div className={"hotelbookingcard_input"} id="hotelbookingcard_input"> 
                   {fillformerror&&<p style={{paddingBottom:"10px",color:"red"}}>Incomplete Details</p>}
+                  {shownewprice&&<p style={{paddingBottom:"10px",color:"red"}}>cost you extra</p>}
                   {(dialog)?<button onClick={dialogopen}>Edit</button>:<div style={{display:"flex"}}>
                     <button onClick={confirm} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
                     <button onClick={dialogclose} >Cancel</button>
                   </div>}
-                  <button  >Delete</button>
+                  {(dialogdel)?<button onClick={dialogopendel}>Delete</button>:<div style={{display:"flex"}}>
+                    <button onClick={confirmdel} style={{marginRight:"5px"}} id="hotelbookingcard_input_confirmbutton" >Confirm</button>
+                    <button onClick={dialogclosedel} >Cancel</button>
+                  </div>}
 
                </div>
 
