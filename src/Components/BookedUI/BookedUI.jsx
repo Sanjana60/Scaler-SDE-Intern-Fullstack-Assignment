@@ -12,7 +12,7 @@ import {typeClicked} from "../Slices/typeClickedSlice";
 
 import { IoIosArrowBack} from 'react-icons/io';
 
-import { collection, onSnapshot, query, updateDoc ,doc,Timestamp} from 'firebase/firestore';
+import { collection, onSnapshot, query, updateDoc ,doc,Timestamp,deleteDoc} from 'firebase/firestore';
 import {db} from "../../firebase"
 
 
@@ -161,9 +161,10 @@ function BookingHotel(props){
     };
 
     const confirmdel = async () => {
-
-      //delete bs
+      await deleteDoc(doc(db,"BookedHotels",props.hotel.id))
   };
+  
+
 
   return (
       <div className="hotelbookingcard" style={{height:whichTypeClicked===props.selected?"230px":"140px"}} onClick={typeClick}>

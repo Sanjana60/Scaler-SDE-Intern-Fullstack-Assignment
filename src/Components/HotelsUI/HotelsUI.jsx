@@ -10,7 +10,7 @@ import {typeClicked} from "../Slices/typeClickedSlice";
 
 import { IoIosArrowBack} from 'react-icons/io';
 
-import { collection, onSnapshot, query, updateDoc ,doc} from 'firebase/firestore';
+import { collection, onSnapshot, query, updateDoc ,doc, addDoc,Timestamp} from 'firebase/firestore';
 import {db} from "../../firebase"
 
 
@@ -99,12 +99,43 @@ function HotelCard({handleClick,hotel}){
 
 function BookingHotel(props){
 
-    const [name, setname] = useState("");
+    const [mail, setmail] = useState("");
     const [room, setroom] = useState(-1);
     const [starttime, setstarttime] = useState("");
     const [endtime, setendtime] = useState("");
     const [fillformerror, setfillformerror] = useState(false);
 
+    const addBooking=async()=>{
+
+        const starttimestamp = new Date(starttime).getTime();
+        const endtimestamp = new Date(endtime).getTime();
+
+
+
+
+        const firebaseStartTimestamp = new Timestamp(parseInt(starttimestamp/1000),0)
+        const firebaseEndTimestamp = new Timestamp(parseInt(endtimestamp/1000),0)
+
+
+
+
+        await addDoc(collection(db,"BookedHotels"),{
+
+            bed:props.type.bed,
+            bookedprice:props.type.price,
+            email:mail,
+            endtime:firebaseEndTimestamp,
+            name:props.hotelData.name+" "+props.type.name,
+            roomnumber:room,
+            shower:props.type.shower,
+            size:props.type.size,
+            starttime:firebaseStartTimestamp,
+            state:props.hotelData.state,
+
+
+        })
+
+    }
 
 
     const whichTypeClicked=useSelector((state)=>state.whichTypeClicked.whichTypeClicked);
@@ -116,21 +147,27 @@ function BookingHotel(props){
 
       const booknow= async ()=>{
         console.log(starttime)
-        if(name!="" && room !="" && starttime!="" &&endtime!=""){
+
+
+
+
+        if(mail!="" && room !="" && starttime!="" &&endtime!=""){
             // setfillformerror(false);
 
-            // let type_copy = props.hotelData.type.map((element,i) => {
-            //     if (i === props.index) {
-            //       element.left = element.left-1;
-            //     } 
-            //   return element;
-            //   });
-            // await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
+            let type_copy = props.hotelData.type.map((element,i) => {
+                if (i === props.index) {
+                  element.left = element.left-1;
+                } 
+              return element;
+              });
+            await updateDoc(doc(db,"HotelNames",props.hotelData.id),{
     
-            //     totalavailable:props.hotelData.totalavailable-1,
-            //     type:type_copy,
+                totalavailable:props.hotelData.totalavailable-1,
+                type:type_copy,
     
-            // })
+            })
+
+            addBooking();
 
 
         }
@@ -141,8 +178,8 @@ function BookingHotel(props){
         
       }
 
-      const handleChangeName = (event) => {
-        setname(event.target.value);
+      const handleChangeMail = (event) => {
+        setmail(event.target.value);
       };
 
       const handleChangeRoom = (event) => {
@@ -193,7 +230,7 @@ function BookingHotel(props){
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                 <div>
                     <div className="hotelbookingcard_input" style={{margin:"7px 0px"}}> 
-                        <input type="text" onChange={handleChangeName} placeholder='Email ID' ></input>
+                        <input type="text" onChange={handleChangeMail} placeholder='Email ID' ></input>
                         <input type="number" onChange={handleChangeRoom} style={{marginLeft:"10px"}} placeholder='Room Number'></input>
                     </div>
                     <div className="hotelbookingcard_input"> 
